@@ -1,6 +1,8 @@
 package ie.gmit.serji;
 
 import com.google.protobuf.BoolValue;
+import com.google.protobuf.ByteString;
+
 import ie.gmit.serji.passwordservice.HashInput;
 import ie.gmit.serji.passwordservice.HashOutput;
 import ie.gmit.serji.passwordservice.PasswordServiceGrpc;
@@ -20,12 +22,21 @@ public class PasswordClient {
     private static final String HOST = "localhost";
     private static final int PORT = 8080; // server port to connect to
 
+
+    private static TestUser _theUser;
+
+
     public static void main(String[] args) throws Exception {
         PasswordClient client = new PasswordClient(HOST, PORT);
 
+        _theUser = new TestUser();
+        _theUser.userId = 1;
+        _theUser.password = "HelloWorld";
+
+
         HashInput input = HashInput.newBuilder()
-                .setUserId(1)
-                .setPassword("HelloWorld")
+                .setUserId(_theUser.userId)
+                .setPassword(_theUser.password)
                 .build();
 
         try {
@@ -34,6 +45,20 @@ public class PasswordClient {
             // keep process alive to receive async response
             Thread.currentThread().join();
         }
+
+//        // create ValidateInput object
+//        ValidateInput validateInput = ValidateInput.newBuilder()
+//                .setPassword(_theUser.password)
+//                .setHashedPassword("[B@752e50b8")
+//                .setSalt("[B@1bdc903c")
+//                .build();
+//
+//        try {
+//            client.validate(validateInput);
+//        } finally {
+//            Thread.currentThread().join();
+//        }
+
     }
 
     private static final Logger logger = Logger.getLogger(PasswordClient.class.getName());
@@ -54,12 +79,18 @@ public class PasswordClient {
         channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
     }
 
-    // async call to hash()
+    // asynchronous call to hash()
     public void hash(HashInput input) {
         StreamObserver<HashOutput> responseObserver = new StreamObserver<HashOutput>() {
             @Override
             public void onNext(HashOutput output) {
+
                 logger.info("Received HashOutput: " + output);
+
+                _theUser.hashedPassword = output.getHashedPassword().toByteArray();
+                _theUser.salt = output.getSalt().toByteArray();
+
+                logger.info("Received HashedBytes: " + _theUser.hashedPassword);
             }
 
             @Override
@@ -71,8 +102,16 @@ public class PasswordClient {
             @Override
             public void onCompleted() {
                 logger.info("Finished receiving HashOutput");
+                // create ValidateInput object
+                ValidateInput validateInput = ValidateInput.newBuilder()
+                        .setPassword(_theUser.password)
+                        .setHashedPassword(ByteString.copyFrom(_theUser.hashedPassword))
+                        .setSalt(ByteString.copyFrom(_theUser.salt))
+                        .build();
+
+                validate(validateInput);
                 // End program
-                System.exit(0);
+//                System.exit(0);
             }
         };
 
@@ -92,7 +131,7 @@ public class PasswordClient {
         StreamObserver<BoolValue> responseObserver = new StreamObserver<BoolValue>() {
             @Override
             public void onNext(BoolValue output) {
-                logger.info("Received BoolValue: " + output);
+                logger.info("Received BoolValue: " + output.getValue());
             }
 
             @Override

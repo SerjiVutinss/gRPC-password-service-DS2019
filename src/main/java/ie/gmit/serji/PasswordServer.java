@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class PasswordServer {
 
     private Server grpcServer;
-    private static final Logger logger = Logger.getLogger(PasswordServer.class.getName());
+    public static final Logger logger = Logger.getLogger(PasswordServer.class.getName());
     private static final int PORT = 8080; // server port
 
     public static void main(String[] args) throws IOException, InterruptedException {
