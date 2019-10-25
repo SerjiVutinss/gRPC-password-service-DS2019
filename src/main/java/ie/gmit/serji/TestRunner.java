@@ -17,7 +17,10 @@ public class TestRunner {
         String badPassword = "HelloWorld!";
 
         boolean isExpectedPassword = Passwords.isExpectedPassword(
-                u.password.toCharArray(), u.salt, u.hashedPassword
+                u.password.toCharArray(),
+//                badPassword.toCharArray(),
+                u.salt,
+                u.hashedPassword
         );
         System.out.println("IS EXPECTED PASSWORD: " + isExpectedPassword);
     }
