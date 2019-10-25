@@ -1,4 +1,4 @@
-package ie.gmit.serji;
+package ie.gmit.serji.client;
 
 import com.google.protobuf.BoolValue;
 import com.google.protobuf.ByteString;

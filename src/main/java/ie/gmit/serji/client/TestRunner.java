@@ -1,4 +1,4 @@
-package ie.gmit.serji;
+package ie.gmit.serji.client;
 
 import ie.gmit.serji.password.Passwords;
 
