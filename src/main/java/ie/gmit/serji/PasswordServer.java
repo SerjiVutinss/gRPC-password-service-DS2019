@@ -6,19 +6,37 @@ import io.grpc.ServerBuilder;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+/**
+ * PasswordServer application class.
+ *
+ * Contains main method for starting the gRPC PasswordService Server.
+ */
 public class PasswordServer {
 
+    // io.grpc.Server
     private Server grpcServer;
+    // Create a Logger - will be helpful to debug server and clients
     public static final Logger logger = Logger.getLogger(PasswordServer.class.getName());
-    private static final int PORT = 8080; // server port
+    // Set a port that the server will run on
+    private static final int PORT = 8080;
 
+    // Entry point for Server application
     public static void main(String[] args) throws IOException, InterruptedException {
+        // Instance of the containing class
         final PasswordServer passwordServer = new PasswordServer();
+        // Start the Server.
         passwordServer.start();
+        // Keep the Server running indefinitely.
         passwordServer.blockUntilShutdown();
     }
 
+    /**
+     * Start the PasswordServer
+     *
+     * @throws IOException From ServerBuilder start() method.
+     */
     private void start() throws IOException {
+        // Build and start the gRPC Server
         grpcServer = ServerBuilder.forPort(PORT)
                 .addService(new PasswordServiceImpl())
                 .build()
@@ -41,5 +59,4 @@ public class PasswordServer {
             grpcServer.awaitTermination();
         }
     }
-
 }

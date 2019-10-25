@@ -11,6 +11,11 @@ import ie.gmit.serji.passwordservice.PasswordServiceGrpc;
 import ie.gmit.serji.passwordservice.ValidateInput;
 import io.grpc.stub.StreamObserver;
 
+/**
+ * Implementation of the generated abstract PasswordServiceImplBase class.
+ * <p>
+ * Contains the methods which will be called by the client.
+ */
 public class PasswordServiceImpl extends PasswordServiceGrpc.PasswordServiceImplBase {
 
     public PasswordServiceImpl() {
