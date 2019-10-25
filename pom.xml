@@ -63,6 +63,7 @@
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
+                        <!--usage: mvn clean compile assembly:single-->
                     </descriptorRefs>
                 </configuration>
             </plugin>
