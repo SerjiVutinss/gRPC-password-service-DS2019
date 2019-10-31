@@ -1,4 +1,6 @@
-## Distributed Systems Project 2019 Part 1 - gRPC Password Service
+# Distributed Systems Project 2019 Part 1 - gRPC Password Service
+
+https://github.com/SerjiVutinss/gRPC-password-service-DS2019
 
 A Password Service that provides password hashing and verification services written in Java using packages from 
 https://github.com/grpc/grpc-java.
@@ -17,6 +19,15 @@ and returns that user ID along with a randomly generated password 64 characters 
 Utility methods for generating and verifying cryptographically secure salted hashes of
 passwords in Java have been used from: https://gist.github.com/john-french/9c94d88f34b2a4ccbe55af6afb083674
 
+***
+
+### Build and Run
+
+**Build:** `mvn clean compile assembly:single` to compile and create a self-contained JAR file.
+
+**Run:** `java -jar .\target\grpc-password-service-1.0-SNAPSHOT-jar-with-dependencies.jar` from project root to run the server.
+
+There are no additional instructions for running the application at this time.
 ***
 ##### Note on types:
 * `int32` type has been used for User ID values.
