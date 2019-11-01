@@ -25,10 +25,20 @@ passwords in Java have been used from: https://gist.github.com/john-french/9c94d
 
 **Build:** `mvn clean compile assembly:single` to compile and create a self-contained JAR file.
 
-**Run:** `java -jar .\target\grpc-password-service-1.0-SNAPSHOT-jar-with-dependencies.jar` from project root to run the server.
+**Run:** `java -jar .\target\grpc-password-service-1.0-SNAPSHOT-jar-with-dependencies.jar` from project root to run 
+the server.
 
 There are no additional instructions for running the application at this time.
 ***
+
+#### Client
+
+This repo also contains a standalone client used for testing.  This can be run by executing the main method in 
+`ie.gmit.serji.client.PasswordClient`.
+
+A TestRunner and TestUser class can also be found in this package - the TestRunner class was used to test the
+basic functionality of the methods in the `Passwords` class.
+
 ##### Note on types:
 * `int32` type has been used for User ID values.
 * `bytes` have been used in the .proto file for both the hashed password and the salt. In the Java service, 
