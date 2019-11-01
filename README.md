@@ -28,6 +28,9 @@ passwords in Java have been used from: https://gist.github.com/john-french/9c94d
 **Run:** `java -jar .\target\grpc-password-service-1.0-SNAPSHOT-jar-with-dependencies.jar` from project root to run 
 the server.
 
+The server is configured to run on port 8080.  This can be changed by changing the value of the `PORT` variable in 
+the `PasswordServer` class.
+
 There are no additional instructions for running the application at this time.
 ***
 
